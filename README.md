@@ -1,18 +1,18 @@
-Title: jSomething Lightweight JavaScript Framework
-Date: 12/14/2010
-UpDate: 1/3/2013
-Version 1.1.0
-Author: Jonathan Voss
+jSomething Lightweight JavaScript Framework
+======
 
   **** NEW as of 1.1.0 ****
+```
   1) Added no-conflict mode to run alongside jQuery, if necessary.
      If $ is in use, defaults to j$.
   2) Added lastReturnObject to support returned objects more directly.
   3) String.prototype.stripEndWS is now String.prototype.strip and is
      now identical to the strip method in my css.js library.
   4) $.hasUnique is now Object.prototype.hasUnique and Array.prototype.hasUnique
+```
 
-[ == Contents == ]
+##Contents
+```
 1. Description
 2. Usage
   a) Specific object API
@@ -22,9 +22,11 @@ Author: Jonathan Voss
     ii) Persistence Cache
     iii) Plugin Construction
 3. Final note
+```
 
 
-[ == 1. Description == ]
+##1. Description
+```
   This code is designed to be used as a lightweight framework from which to develop
 customized libraries. The framework itself is quite simple, with a down-to-earth
 object returned from the constructor. The framework file itself is only 388 lines.
@@ -32,15 +34,17 @@ object returned from the constructor. The framework file itself is only 388 line
 borrowed from jQuery. The idea to name it jSomething was also inspired by jQuery.
 The main ideas behind the framework are simplicity, high customization, and
 decentralized development.
+````
 
 
-[ == 2. Usage == ]
+##2. Usage
   Usage is quite simple. You pass the function either an element ID, an element, an
 object with instructions for constructing a new element, or an html string. The
 function returns an object encasing the element. In the case of html string input,
 the element is a div. In no-conflict mode, use j$ instead of $.
 
   a) Specific object API
+```
     $(string ElementID)
       Retrieves the element with the input ID.
 
@@ -139,8 +143,10 @@ the element is a div. In no-conflict mode, use j$ instead of $.
 
     ::getElement()
       Returns the element. Breaks recursivity.
+```
 
   b) Extensions
+```
     $.c
       The persistence cache; used for plugins.
 
@@ -183,8 +189,10 @@ the element is a div. In no-conflict mode, use j$ instead of $.
       Returns String with the whitespace at the beginning and end stripped.
       Formerly String.prototype.stripEndWS. This is actually a dependency for the
       class management methods of the main constructor object.
+```
 
   c) Plugin Authoring
+```
     i) Plugin Installation
        Plugin authoring is fairly straightforward. To install a plugin, simply pass
       the plugin object to the $.addPlugin function. A typical plugin installation
@@ -248,11 +256,12 @@ the element is a div. In no-conflict mode, use j$ instead of $.
       sucks--for larger, more powerful scripts/web apps, use the betterEvents plugin.
       $-animation.js is very bare, so feel free to beef it up with cooler effects,
       cuz I sure as hell don't have the time right now.
+```
 
-[ == 3. Final Note == ]
+##3. Final Note
  The code is yours to do whatever you wish with it. You can rewrite it, extend it,
 write plugin packages for it, or anything else your heart desires. If you come up
 with anything you'd like to share, or have any questions, send an email to
-k98kurz@gmail.com
+k98kurz@gmail.com or contact me through github.
 
  Enjoy
