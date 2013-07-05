@@ -3,8 +3,8 @@
  *
  * Copyright 2013, Jonathan Voss
  * Date: 12/14/2010
- * Revision Date: 1/3/2013
- * Version: 1.1.0
+ * Revision Date: 7/5/2013
+ * Version: 1.1.1
  * 
  * New (12/27/2012): updated returnValue to this.returnValue for plugins
  * New (1/3/2013): added lastReturnObject and this.lastReturnObject ()
@@ -13,6 +13,8 @@
  * New (1/3/2013): better String.strip function borrowed from css.js library
  * New (1/3/2013): $.hasUnique is now Object.prototype.hasUnique
  * New (1/3/2013): cut down on the pasta a little bit
+ * New (7/5/2013): changed xhttpget (url, func) to xhttp (url, func, method, data)
+ * 					also fixed xhttp callback function issues by making global variable $.xhttp.x
 */
 
 var j$ = function (input) {
@@ -302,20 +304,25 @@ j$.addPlugin = function(plugin, overwrite) {
 };
 
 // Useful extensions
-j$.xhttpget = function(url, func) {
+j$.xhttp = function(url, func, method, data) {
 	try {
 		var useEvent = false;
 		if (typeof url!="string") { throw "No URL"; }
 		if (typeof func=="function") { useEvent = true; }
+		if (typeof method!="string") { method = "GET"; }
 		var x = (XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
-		x.open("GET", url, useEvent);
+		j$.xhttp.x = x;
+		x.open(method, url, useEvent);
+		if (method=="POST"&&typeof data=="string"&&data.length) {
+			x.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		}
 		switch (useEvent) {
 			case true:
 				x.onreadystatechange = func;
-				x.send();
+				x.send((method=="POST"&&typeof data=="string")?data:"");
 				return [true];
 			case false:
-				x.send();
+				x.send((method=="POST"&&typeof data=="string")?data:"");
 				return [true, [x.status, x.getAllResponseHeaders(), x.responseText, x.responseXML]];
 		}
 	} catch (e) {
