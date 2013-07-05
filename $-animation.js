@@ -4,15 +4,15 @@
  *
  * Copyright 2012, Jonathan Voss
  * Date: 7/12/2012
- * Last Revision: 1/16/2013
- * Version: 1.0.3
+ * Last Revision: 7/5/2013
+ * Version: 1.1.0
 */
 
 (function(w) {
 	if (!w.$ && !w.j$){ return; }
-	var $ = (typeof w.$.c=="object" && typeof w.$.addPlugin=="function") w.$ : w.j$;
+	var $ = (typeof w.$.c=="object" && typeof w.$.addPlugin=="function") ? w.$ : w.j$, i,
 	
-	var plugins = [ {
+	plugins = [ {
 			name		:	"fadeOut",
 			persistent	:	{
 				fade		:	{
@@ -22,13 +22,13 @@
 				}
 			},
 			func		:	function(delay) {
-				var isIE = navigator.appName.search("Microsoft")>-1?true:false;
-				if (!delay) { delay = j$.c.fade.delayDefault; }
-				var frameRate = j$.c.fade.frameRate, i;
-				var steps = delay / frameRate, moves = [], amount;
+				if (!delay) { delay = $.c.fade.delayDefault; }
+				var isIE = navigator.appName.search("Microsoft")>-1?true:false,
+				frameRate = $.c.fade.frameRate, i,
+				steps = Math.ceil(delay / frameRate), moves = [], amount;
 
-				if (!j$.c.fade.elements.length||j$.c.fade.elements[j$.c.fade.elements.length-1]!=this.getElement()) {
-					j$.c.fade.elements.push(this.getElement());
+				if (!$.c.fade.elements.length||$.c.fade.elements[$.c.fade.elements.length-1]!=this.getElement()) {
+					$.c.fade.elements.push(this.getElement());
 				}
 
 				amount = 1.0/steps;
@@ -37,10 +37,10 @@
 				}
 				for (i=0;i<steps;i++) {
 					if (isIE) {
-						window.setTimeout("j$(j$.c.fade.elements["+j$.c.fade.elements.length-1+"])"+
+						window.setTimeout("j$(j$.c.fade.elements["+($.c.fade.elements.length-1)+"])"+
 								".setStyle({filter:alpha(opacity="+moves.pop()*100+"})", frameRate*i);
 					} else {
-						window.setTimeout("j$(j$.c.fade.elements["+j$.c.fade.elements.length-1+"])"+
+						window.setTimeout("j$(j$.c.fade.elements["+($.c.fade.elements.length-1)+"])"+
 								".setStyle({opacity:"+moves.pop()+"})", frameRate*i);
 					}
 				}
@@ -50,13 +50,13 @@
 		{
 			name		:	"fadeIn",
 			func		:	function(delay) {
-				var isIE = navigator.appName.search("Microsoft")>-1?true:false;
-				if (!delay) { delay = j$.c.fade.delayDefault; }
-				var frameRate = j$.c.fade.frameRate, i;
-				var steps = delay / frameRate, moves = [], amount;
+				if (!delay) { delay = $.c.fade.delayDefault; }
+				var isIE = navigator.appName.search("Microsoft")>-1?true:false,
+				frameRate = $.c.fade.frameRate, i,
+				steps = Math.ceil(delay / frameRate), moves = [], amount;
 
-				if (!j$.c.fade.elements.length||j$.c.fade.elements[j$.c.fade.elements.length-1]!=this.getElement()) {
-					j$.c.fade.elements.push(this.getElement());
+				if (!$.c.fade.elements.length||$.c.fade.elements[$.c.fade.elements.length-1]!=this.getElement()) {
+					$.c.fade.elements.push(this.getElement());
 				}
 
 				amount = 1.0/steps;
@@ -65,10 +65,10 @@
 				}
 				for (i=0;i<steps;i++) {
 					if (isIE) {
-						window.setTimeout("j$(j$.c.fade.elements["+(j$.c.fade.elements.length-1)+"])"+
+						window.setTimeout("j$(j$.c.fade.elements["+($.c.fade.elements.length-1)+"])"+
 								".setStyle({filter:alpha(opacity="+(moves.pop()*100)+"})", frameRate*i);
 					} else {
-						window.setTimeout("j$(j$.c.fade.elements["+(j$.c.fade.elements.length-1)+"])"+
+						window.setTimeout("j$(j$.c.fade.elements["+($.c.fade.elements.length-1)+"])"+
 								".setStyle({opacity:"+moves.pop()+"})", frameRate*i);
 					}
 				}
@@ -78,9 +78,9 @@
 		{
 			name		:	"fade",
 			func		:	function(delay) {
-				var isIE = navigator.appName.search("Microsoft")>-1?true:false;
-				var temp;
-				if (!delay) { delay = j$.c.fade.delayDefault; }
+				var isIE = navigator.appName.search("Microsoft")>-1?true:false,
+				temp;
+				if (!delay) { delay = $.c.fade.delayDefault; }
 				if (isIE) {
 					this.getStyle("filter");
 					temp = this.lastReturnValue();
@@ -99,7 +99,7 @@
 		}
 	];
 	
-	for (var i=0; i<plugins.length; i++) {
+	for (i=0; i<plugins.length; i++) {
 		$.addPlugin(plugins[i]);
 	}
 	
