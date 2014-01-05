@@ -24,8 +24,8 @@ var j$ = function (input) {
 j$.prototype.init = function(input) {
 	// Initial validation of private elem object
 	if (typeof input!="string" && typeof input!="object") { return null; }
-	var elem = (typeof input=="string") ? (document.getElementById(input) || input) : input;
-	var i; // for all those loops
+	var elem = (typeof input=="string") ? (document.getElementById(input) || input) : input, css,
+	i; // for all those loops
 	if (input.tag) {
 		elem = document.createElement(input.tag);
 		if (input.attributes && typeof input.attributes=="object") {
@@ -50,7 +50,7 @@ j$.prototype.init = function(input) {
 	
 	// Private properties and methods
 	// Because methods are private, return values are not the main object wrapper
-	var css = (elem.style) ? elem.style : null;
+	css = (elem.style) ? elem.style : null;
 	function validateEvent (e) {
 		if (!e || !e.type || !e.func) { return false; }
 		if (typeof e.type!="string" || typeof e.func!="function") { return false; }

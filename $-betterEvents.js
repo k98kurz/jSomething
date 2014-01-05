@@ -68,7 +68,7 @@
 			}
 		},
 		{
-			name		:	"removeEvent",
+			name		:	"RemoveEvent",
 			func		:	function (events) {
 				if (!c) {var c;}
 				if (!events||!events.length) { this.returnValue.call(this, null); return this; }
